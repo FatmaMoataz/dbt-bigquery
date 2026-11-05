@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Cleaned and standardized orders data"
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: "Customer who placed the order"
+        data_tests:
+          - not_null
+
+  - name: stg_payments
+    description: "Cleaned and standardized payments data"
+    columns:
+      - name: payment_id
+        description: "Unique identifier for each payment"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: order_id
+        description: "Order associated with the payment"
+        data_tests:
+          - not_null

@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension table with order behavior metrics"
+    columns:
+      - name: customer_id
+        description: "Primary key for the customer dimension"
+        data_tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "Customer first name"
+      - name: last_name
+        description: "Customer last name"
+      - name: first_order_date
+        description: "Date of the customer's first order"
+      - name: most_recent_order_date
+        description: "Date of the customer's most recent order"
+      - name: number_of_orders
+        description: "Total number of orders per customer"
+
+  - name: fact_orders
+    description: "Order fact table with customer and payment information"
+    columns:
+      - name: order_id
+        description: "Primary key for the order fact table"
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Customer who placed the order"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: order_date
+        description: "Date the order was placed"
+      - name: status
+        description: "Current status of the order"
+      - name: amount
+        description: "Total payment amount for the order"
+        data_tests:
+          - not_null
+    
+  - name: fact_payment
+    description: "Payment fact table with transaction-level details"
+    columns:
+      - name: payment_id
+        description: "Unique identifier for each payment"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: order_id
+        description: "Order associated with the payment"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fact_orders')
+                field: order_id
+
+      - name: payment_method
+        description: "Payment method used"
+
+      - name: status
+        description: "Payment transaction status"
+
+      - name: amount
+        description: "Payment amount"
+        data_tests:
+          - not_null
+
+      - name: created_at
+        description: "Payment creation date"
+

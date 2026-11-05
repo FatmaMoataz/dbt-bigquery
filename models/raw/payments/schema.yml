@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: payments
+    description: "Payments Table"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: orderid
+        description: "The ID of the order associated with the payment"
+        data_tests:
+          - not_null
+      - name: paymentmethod
+        description: "The payment method used for the transaction"
+        data_tests:
+          - not_null
+      - name: status
+        description: "The status of the payment"
+        data_tests:
+          - not_null
+      - name: amount
+        description: "The amount of the payment"
+        data_tests:
+          - not_null
+      - name: created
+        description: "The date the payment was created"
+        data_tests:
+          - not_null

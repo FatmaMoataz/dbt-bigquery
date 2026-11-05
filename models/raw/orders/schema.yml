@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: orders
+    description: "Orders Table"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "The ID of the user who placed the order"
+        data_tests:
+          - not_null
+      - name: order_date
+        description: "The date the order was placed"
+        data_tests:
+          - not_null
+      - name: status
+        description: "The status of the order"
+        data_tests:
+          - not_null
+      - name: last_name
+        description: "The customer's last name"
+        data_tests:
+          - not_null
